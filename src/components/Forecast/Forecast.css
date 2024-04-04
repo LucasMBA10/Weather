@@ -1,0 +1,10 @@
+.ForecastContainer {
+    background-color: blueviolet;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  
+  }
