@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Time</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Time</h1>
+        <h2>Saiba do tempo, antes dele chegar até você</h2>
+        
+        {% block content %}
+            <form method="post" action="{% url 'User Login' %}">
+                {% csrf_token %}
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Username" />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Password" />
+                </div>
+                <div>
+                    <input type="submit" value="Login" />
+                </div>
+            </form>
+            <a href="{% url 'User Insert' %}">Crie uma conta</a>
+            <a href="{% url 'User Forget' %}">Esqueci minha senha</a>
+        {% endblock content %}
+    </div>
+</body>
+</html>

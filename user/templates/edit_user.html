@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+    <h1>Edit User</h1>
+    <form method="post" action="{% url 'User Delete' user_id=user_id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>    
+        
+      <form method="post" action="{% url 'User Edit' user_id=user_id %}">
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" value="{{ user.username }}"><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" value="{{ user.email }}"><br><br>
+        
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>

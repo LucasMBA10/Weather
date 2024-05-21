@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Weather</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Weather</h2>
+        <form method="post" action="{% url 'Weather Edit' user_id=user_id %}">
+            {% csrf_token %}
+            <input type="hidden" name="date" value="{{ form.date.value }}">
+            <input type="number" name="temperature" placeholder="Temperature" value="{{ form.temperature.value }}" required /><br>
+            <input type="number" name="atmosphericPressure" placeholder="Atmospheric Pressure" value="{{ form.atmosphericPressure.value }}" required /><br>
+            <input type="number" name="humidity" placeholder="Humidity" value="{{ form.humidity.value }}" required /><br>
+            <input type="text" name="weather" placeholder="Weather" value="{{ form.weather.value }}" /><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

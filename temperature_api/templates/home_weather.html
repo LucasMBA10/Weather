@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather Data</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Estilo para o botão */
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-top: 20px; /* Adiciona margem acima do botão */
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Weather Data</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Temperature</th>
+            <th>City</th>
+            <th>Atmospheric Pressure</th>
+            <th>Humidity</th>
+            <th>Weather</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for weather in weathers %}
+          <tr>
+              <td>{{ weather.temperature }}</td>
+              <td>{{ weather.city }}</td>
+              <td>{{ weather.atmosphericPressure }}</td>
+              <td>{{ weather.humidity }}</td>
+              <td>{{ weather.weather }}</td>
+              <td>{{ weather.date }}</td>
+              <td><a href="{% url 'Weather Edit' id=weather.id user_id=user_id %}">Editar</a></td>
+              <td><a href="{% url 'Weather Delete' id=weather.id user_id=user_id %}">Remover</a></td>              
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div id="create">
+        <form action="{% url 'Weather Insert' user_id=user_id %}" method="GET">
+          <button type="submit">CRIAR UMA PREVISÃO</button>
+        </form>
+        <form action="{% url 'Weather Reset' user_id=user_id %}" method="DELETE">
+          <button type="submit">RESETE AS PREVISÕES</button>
+        </form>
+        <a href="{% url 'User Edit' user_id=user_id %}">Editar Usuário</a>
+
+
+      </div>
+    </div>
+  </body>
+</html>
