@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# Weather Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a weather application built using Python with Django Rest Framework that integrates MongoDB as its database. The application follows the Model-View-Template (MVT) pattern and provides support for calling external APIs to fetch weather data.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Weather Data**: Retrieve weather data from external APIs.
+- **Database Integration**: Store and manage weather data using MongoDB.
+- **RESTful API**: Expose endpoints to interact with weather data.
+- **MVT Pattern**: Organize codebase following the Model-View-Template pattern.
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Python 3.x
+- Django
+- Django Rest Framework
+- MongoDB
+- External Weather API (e.g., OpenWeatherMap, WeatherAPI)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup
 
-### `npm test`
+1. **Clone the Repository**:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/profAndreSouza/api_weather.git
+```
 
-### `npm run build`
+2. **Install Dependencies**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+pip install -r requirements.txt
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Configure MongoDB**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Install and configure MongoDB.
+- Update the database settings in `settings.py` to connect to your MongoDB instance.
 
-### `npm run eject`
+4. **External API Integration**:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Sign up for an account on a weather API provider.
+- Get API credentials and update settings in the application accordingly.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. **Start the Server**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+python manage.py runserver
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. **Access the API**:
 
-## Learn More
+The API endpoints will be available at `http://localhost:8000/api/`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## API Endpoints
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `/`: List all weather data.
+- `/generate`: Generate aleatory weather record.
+- `/reset`: Delete all weather records.
 
-### Code Splitting
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Fetch Weather Data from External API:
 
-### Analyzing the Bundle Size
+```python
+# Example code to fetch weather data from external API
+import requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+def fetch_weather_data():
+    api_key = 'your_api_key'
+    url = f'https://api.weatherapi.com/v1/current.json?key={api_key}&q=London'
+    response = requests.get(url)
+    data = response.json()
+    return data
+```
 
-### Making a Progressive Web App
+2. Store Weather Data in MongoDB:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```python
+# Example code to store weather data in MongoDB
+from pymongo import MongoClient
 
-### Advanced Configuration
+def save_to_mongodb(data):
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['weather']
+    collection = db['weather_data']
+    collection.insert_one(data)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Access Weather Data via API:
 
-### Deployment
+```python
+# Example code to access weather data via API
+import requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+def get_weather_data():
+    response = requests.get('http://localhost:8000/api/weather/')
+    data = response.json()
+    return data
+```
 
-### `npm run build` fails to minify
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contributions are welcome! Feel free to open issues or pull requests.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
